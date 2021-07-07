@@ -8,7 +8,8 @@ class App extends Component {
     super(props);
     this.state = {
       msg: 'count start!',
-      counter: 0
+      counter: 0,
+      flag: true
     };
     this.doAction = this.doAction.bind(this);
   }
@@ -16,7 +17,8 @@ class App extends Component {
   doAction(event){
     this.setState({
       counter: this.state.counter + 1,
-      msg: '*** count: ' + this.state.counter + ' ***'
+      msg: this.state.counter,
+      flag: !this.state.flag
     })
   }
 
@@ -26,8 +28,16 @@ class App extends Component {
         <h1 className="bg-primary text-white display-4">React</h1>
         <div className="container">
           <p className="subtitle">Count number.</p>
-          <div className="alert alert-primary text-center">
-            <p className="h5 mb-4">{this.state.msg}</p>
+          {this.state.flag ?
+            <div className="alert alert-primary text-right">
+              <p className="h5 mb-4">count: {this.state.msg}</p>
+            </div>
+          :
+            <div className="alert alert-primary text-left">
+              <p className="h5 mb-4">{this.state.msg}です。</p>
+            </div>
+          }
+          <div className="text-center">
             <button className="btn btn-primary" onClick={this.doAction}>Click</button>
           </div>
         </div>

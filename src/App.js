@@ -1,36 +1,22 @@
 import './App.css';
 import React, { Component } from 'react';
 import Rect from './Rect';
-import List from './List';
+import Message from './Message';
 
 class App extends Component {
-
-  data = [
-    "This is list sample",
-    "これはリストのサンプルです。",
-    "配列をリストに変換します。"
-  ];
-
-  area = {
-    width: "500px",
-    height: "500px",
-    border: "1px solid blue"
-  };
-
-  constructor(props){
-    super(props);
-    this.state = {
-      list: this.data
-    };
-  }
+  
+  input = ''
 
   render(){
     return (
       <div>
         <h1 className="bg-primary text-white display-4">React</h1>
         <div className="container">
-          <p className="subtitle">Show list</p>
-          <List title="サンプル・リスト" data={this.data}></List>
+          <Message title="Children!">
+            これはコンポーネント内のコンテンツです。
+            マルでテキストを分割し、リストにして表示します。
+            改行は必要ありません。
+          </Message>
         </div>
         <div className="container p-relative">
           <p className="subtitle">draw rectangle.</p>

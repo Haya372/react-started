@@ -4,22 +4,41 @@ import Rect from './Rect';
 
 class App extends Component {
 
+  data = [];
+
+  area = {
+    width: "500px",
+    height: "500px",
+    border: "1px solid blue"
+  };
+
   constructor(props){
     super(props);
     this.state = {
-      msg: 'count start!',
-      counter: 0,
-      flag: true
+      list: this.data
     };
     this.doAction = this.doAction.bind(this);
   }
 
-  doAction(event){
+  doAction(e){
+    let x = e.pageX;
+    let y = e.pageY;
+    this.data.push({x: x, y: y});
     this.setState({
-      counter: this.state.counter + 1,
-      msg: this.state.counter,
-      flag: !this.state.flag
-    })
+      list: this.data
+    });
+  }
+
+  draw(d){
+    let s = {
+      position: "absolute",
+      left: (d.x - 25) + "px",
+      top: (d.y - 25) + "px",
+      width: "50px",
+      height: "50px",
+      backgroundColor: "#66f3",
+    }
+    return <div style={s}></div>
   }
 
   render(){
@@ -27,18 +46,9 @@ class App extends Component {
       <div>
         <h1 className="bg-primary text-white display-4">React</h1>
         <div className="container">
-          <p className="subtitle">Count number.</p>
-          {this.state.flag ?
-            <div className="alert alert-primary text-right">
-              <p className="h5 mb-4">count: {this.state.msg}</p>
-            </div>
-          :
-            <div className="alert alert-primary text-left">
-              <p className="h5 mb-4">{this.state.msg}です。</p>
-            </div>
-          }
-          <div className="text-center">
-            <button className="btn btn-primary" onClick={this.doAction}>Click</button>
+          <p className="subtitle">draw rectangle</p>
+          <div style={this.area} onClick={this.doAction}>
+            {this.data.map((value)=>this.draw(value))}
           </div>
         </div>
         <div className="container p-relative">

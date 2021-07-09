@@ -1,10 +1,15 @@
 import './App.css';
 import React, { Component } from 'react';
 import Rect from './Rect';
+import List from './List';
 
 class App extends Component {
 
-  data = [];
+  data = [
+    "This is list sample",
+    "これはリストのサンプルです。",
+    "配列をリストに変換します。"
+  ];
 
   area = {
     width: "500px",
@@ -17,28 +22,6 @@ class App extends Component {
     this.state = {
       list: this.data
     };
-    this.doAction = this.doAction.bind(this);
-  }
-
-  doAction(e){
-    let x = e.pageX;
-    let y = e.pageY;
-    this.data.push({x: x, y: y});
-    this.setState({
-      list: this.data
-    });
-  }
-
-  draw(d){
-    let s = {
-      position: "absolute",
-      left: (d.x - 25) + "px",
-      top: (d.y - 25) + "px",
-      width: "50px",
-      height: "50px",
-      backgroundColor: "#66f3",
-    }
-    return <div style={s}></div>
   }
 
   render(){
@@ -46,10 +29,8 @@ class App extends Component {
       <div>
         <h1 className="bg-primary text-white display-4">React</h1>
         <div className="container">
-          <p className="subtitle">draw rectangle</p>
-          <div style={this.area} onClick={this.doAction}>
-            {this.data.map((value)=>this.draw(value))}
-          </div>
+          <p className="subtitle">Show list</p>
+          <List title="サンプル・リスト" data={this.data}></List>
         </div>
         <div className="container p-relative">
           <p className="subtitle">draw rectangle.</p>

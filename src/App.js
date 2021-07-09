@@ -10,7 +10,10 @@ const SampleContext = React.createContext(data);
 
 class App extends Component {
   
-  input = ''
+  newdata = {
+    title: '新しいタイトル',
+    message: 'これは新しいメッセージです。'
+  }
 
   constructor(props){
     super(props);
@@ -31,6 +34,14 @@ class App extends Component {
       <div>
         <h1 className="bg-primary text-white display-4">React</h1>
         <div className="container">
+          <Title />
+          <Message />
+          <hr />
+          <SampleContext.Provider value={this.newdata}>
+            <Title />
+            <Message />
+          </SampleContext.Provider>
+          <hr />
           <Title />
           <Message />
         </div>

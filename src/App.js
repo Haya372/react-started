@@ -1,75 +1,51 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import usePersist from './Persist';
 
-const total = (a) => {
-  let res = 0;
-  for(let i = 0; i <= a; i++) {
-    res += i;
-  }
-  return res;
-}
-
-const tax = (a) => {
-  return Math.floor(a * 1.1);
-}
-
-function useCalc(num = 0, func = (a) => {return a}){
-  const [msg, setMsg] = useState(null);
-
-  const setValue = (p) => {
-    let res = func(p);
-    setMsg(<p className="h5">※{p}の結果は、{res}です。</p>)
-  }
-
-  return [msg, setValue];
-}
-
-function PlainMessage(props){
-  const [msg, setCalc] = useCalc();
-
-  const onChange = (e) => {
-    setCalc(e.target.value);
-  };
-
-  return (
-    <div className="p-3 h5">
-      <h5>{msg}</h5>
-      <input type="number" onChange={onChange} className="form-control"/>
-    </div>
-  )
-}
 
 function AlertMessage(props){
-  const [msg, setCalc] = useCalc(0, total);
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
+  const [age, setAge] = useState(0);
+  const [mydata, setMydata] = usePersist("mydata", null);
 
-  const onChange = (e) => {
-    setCalc(e.target.value);
-  };
+  const onChangeName = (e) => {
+    setName(e.target.value);
+  }
+  const onChangeMail = (e) => {
+    setMail(e.target.value);
+  }
+  const onChangeAge = (e) => {
+    setAge(e.target.value);
+  }
+  const onAction = (e) => {
+    const data = {
+      name: name,
+      mail: mail,
+      age: age
+    };
+    setMydata(data);
+  }
 
   return (
     <div className="alert alert-primary h5 text-primary">
-      <h5>{msg}</h5>
-      <input type="number" className="form-control" onChange={onChange} min="0" max="10000" />
+      <h5 className="mb-4">{JSON.stringify(mydata)}</h5>
+      <div className="form-group">
+        <label className="h6">Name</label>
+        <input type="text" onChange={onChangeName} className="form-control" />
+      </div>
+      <div className="form-group">
+        <label className="h6">Mail</label>
+        <input type="text" onChange={onChangeMail} className="form-control" />
+      </div>
+      <div className="form-group">
+        <label className="h6">Age</label>
+        <input type="number" onChange={onChangeAge} className="form-control" />
+      </div>
+      <button onClick={onAction} className="btn btn-primary">Save it!</button>
     </div>
   );
 }
-
-
-function CardMessage(props){
-  const [msg, setCalc] = useCalc(0, tax);
-
-  const onChange = (e) => {
-    setCalc(e.target.value);
-  };
-
-  return (
-    <div className="card p-3 h5 border-primary">
-      <h5>{msg}</h5>
-      <input type="range" className="form-control" onChange={onChange} min="0" max="10000" step="100"/>
-    </div>
-  );
-}
-
 
 
 function App() {
@@ -78,9 +54,7 @@ function App() {
       <h1 className="bg-primary text-white display-4">React</h1>
       <div className="container">
         <h4 className="my-3">Hooks sample</h4>
-        <PlainMessage />
         <AlertMessage />
-        <CardMessage />
       </div>
     </div>
   );

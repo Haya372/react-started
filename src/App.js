@@ -1,7 +1,12 @@
 import './App.css';
 import React, { Component } from 'react';
-import Rect from './Rect';
-import Message from './Message';
+
+let data = {
+  title: 'React-Context',
+  message: 'this is sample message'
+};
+
+const SampleContext = React.createContext(data);
 
 class App extends Component {
   
@@ -26,15 +31,33 @@ class App extends Component {
       <div>
         <h1 className="bg-primary text-white display-4">React</h1>
         <div className="container">
-          <h4>{this.state.title}</h4>
-          <Message maxlength={this.state.max} onCheck={this.doCheck} />
+          <Title />
+          <Message />
         </div>
-        <div className="container p-relative">
-          <p className="subtitle">draw rectangle.</p>
-          <Rect x="200" y="200" width="200" height="200" color="#6ff9" radius="25" />
-          <Rect x="300" y="300" width="200" height="200" color="#f6f9" radius="75" />
-          <Rect x="400" y="400" width="200" height="200" color="#6669" radius="100" />
-        </div>
+      </div>
+    )
+  }
+}
+
+class Title extends Component {
+  static contextType = SampleContext;
+
+  render(){
+    return (
+      <div className="card p-2 my-3">
+        <h2>{this.context.title}</h2>
+      </div>
+    )
+  }
+}
+
+class Message extends Component {
+  static contextType = SampleContext;
+
+  render(){
+    return (
+      <div className="alert alert-primary">
+        <p>{this.context.message}</p>
       </div>
     )
   }

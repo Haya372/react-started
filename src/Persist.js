@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function usePersist(ky, initVal){
   const key = "hooks:" + ky;
@@ -11,6 +11,7 @@ function usePersist(ky, initVal){
       return initVal;
     }
   }
+  const [savedValue, setSavedValue] = useState(value);
   const setValue = (val) => {
     try{
       setSavedValue(val);
@@ -19,7 +20,7 @@ function usePersist(ky, initVal){
       console.log(err);
     }
   }
-  const [savedValue, setSavedValue] = useState(value);
+  
   return [savedValue, setValue];
 }
 

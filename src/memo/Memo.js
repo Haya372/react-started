@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import usePersist from '../Persist';
 
-import Item from '.Item';
+import Item from './Item';
 
 function Memo(props){
   const [memo, setMemo] = usePersist("memo", []);
-  const [fmemo, setFmemo] = usePersist("findmemo", []);
+  const [fmemo, setFmemo] = usePersist("findMemo", []);
   const [mode, setMode] = usePersist('mode', 'default');
 
   let data = [];
@@ -14,7 +14,8 @@ function Memo(props){
       data = memo.map((value, key) => (
         <Item key={value.message} value={value} index={key + 1} />
       ));
-      setMode('default');
+      // ここのsetModeは謎
+      //setMode('default');
       break;
     case 'find':
       data = fmemo.map((value, key) => (

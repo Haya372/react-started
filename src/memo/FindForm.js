@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePersist from '../Persist';
 
 function FindForm(props){
-  const [memo, setMemo] = usePersist("memo", []);
+  const [memo,] = usePersist("memo", []);
   const [fmemo, setFmemo] = usePersist("findMemo", []);
   const [message, setMessage] = useState('');
   const [mode, setMode] = usePersist('mode', 'find');
@@ -22,6 +22,7 @@ function FindForm(props){
     setFmemo(res);
     setMode('find');
     setMessage('');
+    // e.preventDefault()しないとsubmitのアクションをした時にページをリロードする
   }
 
   return (

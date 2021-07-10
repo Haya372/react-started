@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePersist from '../Persist';
 
 function DelForm(props){
@@ -15,6 +15,7 @@ function DelForm(props){
     });
     setMemo(res);
     setNum(0);
+    // e.preventDefault()しないとsubmitのアクションをした時にページをリロードする
   }
 
   let items = memo.map((value, key) => (

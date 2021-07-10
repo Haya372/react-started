@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePersist from '../Persist';
 
 function AddForm(props){
@@ -17,12 +17,13 @@ function AddForm(props){
     memo.unshift(data);
     setMemo(memo);
     setMessage('');
+    // e.preventDefault()しないとsubmitのアクションをした時にページをリロードする
   }
 
   return (
     <form onSubmit={doAction} action="">
       <div className="form-group row">
-        <input type="text" value={message} onChange={doChange} required />
+        <input type="text" value={message} onChange={doChange} required className="form-control-sm col"/>
         <input type="submit" value="Add" className="btn btn-primary btn-sm col-2" />
       </div>
     </form>
